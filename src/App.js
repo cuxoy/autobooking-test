@@ -1,65 +1,18 @@
-import { useEffect, useState, useMemo } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Main from "./Main";
 import "./App.css";
 
 function App() {
-  const [data, setData] = useState({ services: [], brands: [], styles: [] });
-  const [loadingStatus, setLoadingStatus] = useState("loading");
-
-  useEffect(() => {
-    const requests = [
-      "https://autobooking.com/api/test/v1/search/terms",
-      "https://autobooking.com/api/test/v1/search/brands_terms",
-      "https://autobooking.com/api/test/v1/search/brands_terms",
-    ];
-    Promise.all(
-      requests.map((request) => {
-        return fetch(request).then((response) => response.json());
-      })
-    )
-      .then((res) =>
-        setData({ services: res[0], brands: res[1], styles: res[2] })
-      )
-      .then(() => setLoadingStatus("loaded"));
-  }, []);
-
-  console.log(data);
-
-  if (loadingStatus === "loading") {
-    return (
-      <div
-        className="loading"
-        style={{
-          "text-align": "center",
-          "font-size": "20px",
-          "margin-top": "40px",
-        }}
-      >
-        Loading...
-      </div>
-    );
-  } else if (loadingStatus === "loaded") {
-    return (
-      <div className="container">
-        <select name="services" id="services">
-          {data.services.data.map((item) => {
-            return <option value="">{item.label}</option>;
-          })}
-        </select>
-        <select name="brands" id="brands">
-          {data.brands.data.map((item) => {
-            return <option value="">{item.label}</option>;
-          })}
-        </select>
-        <select name="styles" id="styles">
-          {data.styles.data.map((item) => {
-            return <option value="">{item.label}</option>;
-          })}
-        </select>
-      </div>
-    );
-  } else {
-    return <div className="loading">Error</div>;
-  }
+  return (
+    <Router>
+      <Routes>
+        <Route path="/:first/:second/:third" element={<Main />} />
+        <Route path="/:first/:second" element={<Main />} />
+        <Route path="/:first" element={<Main />} />
+        <Route path="/" element={<Main />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
