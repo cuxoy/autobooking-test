@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from "react";
-import { parsePath, useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import React from "react";
 
 function Main() {
@@ -8,8 +8,8 @@ function Main() {
   const [url, setUrl] = useState({ s: "", b: "", st: "" });
 
   const navigate = useNavigate();
-  const locationParams = useParams();
 
+  //////////Fetching data
   useEffect(() => {
     const requests = [
       "https://onboarding.art-code.team/api/test/v1/search/terms",
@@ -29,6 +29,8 @@ function Main() {
       )
       .then(() => setLoadingStatus("loaded"));
   }, []);
+
+  //making dynamic URLs
 
   useEffect(() => {
     onSetUrlChange();
@@ -66,6 +68,8 @@ function Main() {
     } else navigate("../");
   };
 
+  // memorising of shoosen data
+
   const itemS =
     data.services.data && localStorage.getItem("urlS")
       ? data.services.data.filter((item) => {
@@ -85,7 +89,8 @@ function Main() {
         })[0].label
       : "";
 
-  ////////////////////////////////////////////////////
+  //Markup
+
   if (loadingStatus === "loading") {
     return (
       <div
