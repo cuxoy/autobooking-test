@@ -58,7 +58,7 @@ function Main() {
     } else if (url.s.length < 1 && url.b.length > 0 && url.st.length < 1) {
       navigate(`../b-${url.b}`);
     } else if (url.s.length < 1 && url.b.length < 1 && url.st.length > 0) {
-      navigate(`../s-${url.st}`);
+      navigate(`../st-${url.st}`);
     } else if (url.s.length > 0 && url.b.length > 0 && url.st.length < 1) {
       navigate(`../s-${url.s}/b-${url.b}`);
     } else if (url.s.length > 0 && url.b.length < 1 && url.st.length > 0) {
